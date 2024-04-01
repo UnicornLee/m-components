@@ -5,16 +5,16 @@
     class="el-menu-vertical-demo"
   >
     <el-menu-item index="1">
-      <el-icon><el-icon-menu /></el-icon>
+      <el-icon><el-icon-homefilled /></el-icon>
       <span>首页</span>
     </el-menu-item>
     <el-menu-item index="2">
-      <el-icon><el-icon-menu /></el-icon>
+      <el-icon><el-icon-check /></el-icon>
       <span>图片选择器</span>
     </el-menu-item>
     <el-menu-item index="3">
-      <el-icon><el-icon-menu /></el-icon>
-      <span>趋势标记</span>
+      <el-icon><el-icon-position /></el-icon>
+      <span>省市区选择</span>
     </el-menu-item>
   </el-menu>
 </template>
