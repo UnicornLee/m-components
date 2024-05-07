@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts" setup>
-import mChooseIcon from '../../components/chooseIcon/src/index.vue'
 import {ref} from 'vue'
 
 let visible = ref<boolean>(false)

@@ -11,7 +11,7 @@ const components = [
 
 export default {
   install(app: App) {
-    components.forEach(item => {
+    components.map(item => {
       app.use(item)
     })
   }
