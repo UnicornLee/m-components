@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="flex">
-      <div><m-trend text="营业额" reverseColor /></div>
-      <div><m-trend text="销售额" type="down" /></div>
+      <div><m-trend text="营业额" upIcon="CaretTop" /></div>
+      <div><m-trend text="销售额" downIcon="CaretBottom" type="down" /></div>
     </div>
   </div>
 </template>
