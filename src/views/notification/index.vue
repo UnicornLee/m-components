@@ -1,7 +1,7 @@
 <template>
   <m-notification :value="50">
     <template #default>
-      <m-list></m-list>
+      <m-list :list="list" :actions="actions"></m-list>
     </template>
   </m-notification>
   <br />
@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import {list, actions} from './data.ts'
 </script>
 
 <style scoped lang="scss">
