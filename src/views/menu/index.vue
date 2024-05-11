@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 200px;">
-<!--    <m-menu :data="data1" default-active="2" active-text-color="red"></m-menu>-->
+  <div style="width: 200px; display: flex; justify-content: space-between;">
+    <m-menu :data="data1" default-active="2" active-text-color="red"></m-menu>
     <m-infinite-menu :data="data2" default-active="3-1-1-1-1" active-text-color="red"></m-infinite-menu>
   </div>
 </template>

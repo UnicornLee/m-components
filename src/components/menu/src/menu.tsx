@@ -5,6 +5,7 @@
 import { defineComponent, PropType, useAttrs } from 'vue'
 import { MenuItem } from './types'
 import { toLine } from '../../../utils'
+import icon from './icon.vue'
 
 export default defineComponent({
   props: {
@@ -24,6 +25,9 @@ export default defineComponent({
       default: false
     }
   },
+  components: {
+    icon
+  },
   setup(props) {
     // 封装一个渲染无限层次菜单的方法
     // 函数会返回一段jsx的代码
@@ -36,7 +40,7 @@ export default defineComponent({
           title: () => {
             return (
               <>
-                <item.i />
+                <icon name={item.i} />
                 <span>{item.name}</span>
               </>
             )
@@ -53,7 +57,7 @@ export default defineComponent({
           // 正常渲染普通的菜单
           return (
             <el-menu-item index={item.index}>
-              <item.i />
+              <icon name={item.i} />
               <span>{item.name}</span>
             </el-menu-item>
           )
