@@ -1,7 +1,7 @@
 <template>
   <m-notification :value="50">
     <template #default>
-      <m-list :list="list" :actions="actions"></m-list>
+      <m-list :list="list" :actions="actions" @clickItem="clickItem" @clickAction="clickAction"></m-list>
     </template>
   </m-notification>
   <br />
@@ -17,6 +17,15 @@
 
 <script setup lang="ts">
 import {list, actions} from './data.ts'
+import { ActionOptions, ListItem } from '../../components/list/src/types.ts'
+
+let clickItem = (val: {item: ListItem, index: number}) => {
+  console.log(val)
+}
+
+let clickAction = (val: {action: ActionOptions, index: number}) => {
+  console.log(val)
+}
 </script>
 
 <style scoped lang="scss">
