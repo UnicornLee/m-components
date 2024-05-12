@@ -9,7 +9,7 @@
           <div class="content">
             <div v-if="item1.title" class="title">
               <div>{{item1.title}}</div>
-              <el-tag v-if="item1.tag" :type="item1.tagType" size="mini">{{item1.tag}}</el-tag>
+              <el-tag v-if="item1.tag" :type="item1.tagType ? item1.tagType : 'primary'" size="small">{{item1.tag}}</el-tag>
             </div>
             <div v-if="item1.desc" class="time">{{item1.desc}}</div>
             <div v-if="item1.time" class="time">{{item1.time}}</div>

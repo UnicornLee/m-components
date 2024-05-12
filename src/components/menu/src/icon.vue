@@ -14,7 +14,5 @@ let props = defineProps({
 <style scoped lang="scss">
 svg {
   margin-right: 4px;
-  width: 1em;
-  height: 1em;
 }
 </style>
