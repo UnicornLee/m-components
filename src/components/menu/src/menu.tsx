@@ -4,8 +4,8 @@
  */
 import { defineComponent, PropType, useAttrs } from 'vue'
 // import { MenuItem } from './types'
-import { toLine } from '../../../utils'
-import icon from './icon.vue'
+import * as Icons from '@element-plus/icons'
+import './styles/index.scss'
 
 export default defineComponent({
   props: {
@@ -46,22 +46,19 @@ export default defineComponent({
       default: 'children'
     }
   },
-  components: {
-    icon
-  },
   setup(props) {
     // 封装一个渲染无限层次菜单的方法
     // 函数会返回一段jsx的代码
     let renderMenu = (data: any[]) => {
       return data.map(item => {
         // 每个菜单的图标
-        item.i = `el-icon-${toLine(item[props.icon]!)}`
+        item.i = (Icons as any)[item.icon!]
         // 处理sub-menu的插槽
         let slots = {
           title: () => {
             return (
               <>
-                <icon name={item.i} />
+                <item.i />
                 <span>{item[props.name]}</span>
               </>
             )
@@ -78,7 +75,7 @@ export default defineComponent({
           // 正常渲染普通的菜单
           return (
             <el-menu-item index={item[props.index]}>
-              <icon name={item.i} />
+              <item.i />
               <span>{item[props.name]}</span>
             </el-menu-item>
           )

@@ -74,37 +74,37 @@ let data1 = [
   {
     name: '导航1',
     index: '1',
-    icon: 'document'
+    icon: 'Document'
   },
   {
     name: '导航2',
     index: '2',
-    icon: 'document'
+    icon: 'Document'
   },
   {
     name: '导航3',
     index: '3',
-    icon: 'document',
+    icon: 'Document',
     children: [
       {
         name: '导航3-1',
         index: '3-1',
-        icon: 'document',
+        icon: 'Document',
         children: [
           {
             name: '导航3-1-1',
             index: '3-1-1',
-            icon: 'document',
+            icon: 'Document',
             children: [
               {
                 name: '导航3-1-1-1',
                 index: '3-1-1-1',
-                icon: 'document',
+                icon: 'Document',
                 children: [
                   {
                     name: '导航3-1-1-1-1',
                     index: '3-1-1-1-1',
-                    icon: 'document'
+                    icon: 'Document'
                   }
                 ]
               }
