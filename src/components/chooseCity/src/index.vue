@@ -9,8 +9,7 @@
       <div class="result">
         <div>{{ result }}</div>
         <div>
-          <el-icon-arrowdown v-if="visible" />
-          <el-icon-arrowup v-else />
+          <el-icon-arrowdown :class="{'rotate': visible}" />
         </div>
       </div>
     </template>
@@ -22,7 +21,7 @@
             <el-radio-button label="按省份" value="2" />
           </el-radio-group>
         </el-col>
-        <el-col :offset="1" :span="15">
+        <el-col :offset="1" :span="15" style="margin-top: 4px">
           <el-select
             size="small"
             v-model="selectValue"
@@ -39,17 +38,43 @@
           </el-select>
         </el-col>
       </el-row>
+      <div class="city">
+<!--        <div v-for="(value, key) in cities">{{ key }}</div>-->
+        <!-- 字母区域 -->
+        <div class="city-item" @click="clickChat(item)" v-for="(item, index) in Object.keys(cities)" :key="index">{{ item }}</div>
+      </div>
+      <el-scrollbar max-height="300px">
+        <template v-for="(value, key) in cities" :key="key">
+          <el-row style="margin-bottom: 10px;" :id="key">
+            <el-col :span="2">{{ key }}:</el-col>
+            <el-col :span="22" class="city-name">
+              <div @click="clickItem(item)" class="city-name-item" v-for="(item, index) in value" :key="item.id">
+                <div>{{ item.name }}</div>
+              </div>
+            </el-col>
+          </el-row>
+        </template>
+      </el-scrollbar>
     </div>
   </el-popover>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import city from '../lib/city'
+import { City } from './types'
 
+let emits = defineEmits(['change'])
+
+// 最终选择的结果
 let result = ref<string>('请选择')
+// 控制弹出层的显示
 let visible = ref<boolean>(false)
+// 单选框的值：按城市还是按省份选择
 let radioValue = ref<string>('1')
+// 下拉框的值 搜索下拉框
 let selectValue = ref<string>('')
+// 下拉框显示城市的数据
 const options = [
   {
     value: 'Option1',
@@ -72,6 +97,24 @@ const options = [
     label: 'Option5',
   },
 ]
+
+// 所有城市的数据
+let cities = ref(city.cities)
+
+// 点击每个城市
+const clickItem = (item: City) => {
+  // 给结果赋值
+  result.value = item.name
+  // 关闭弹出层
+  visible.value = false
+  emits('change', item)
+}
+
+// 点击字母区域
+const clickChat = (item: string) => {
+  let el = document.getElementById(item)
+  if (el) el.scrollIntoView()
+}
 </script>
 
 <style scoped lang="scss">
@@ -81,7 +124,41 @@ const options = [
   width: fit-content;
   cursor: pointer;
 }
+.rotate {
+  transform: rotate(180deg);
+}
+svg {
+  position: relative;
+  top: 2px;
+  margin-left: 4px;
+  transition: transform 0.25s linear;
+}
 .container {
   padding: 6px;
+}
+.city {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  &-item {
+    padding: 3px 6px;
+    margin-right: 8px;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+}
+
+.city-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  &-item {
+    margin-right: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+  }
 }
 </style>
