@@ -5,3 +5,9 @@ export interface City {
   // 名字
   name: string
 }
+
+export interface Province {
+  id?: string,
+  name: string,
+  data: string[]
+}
