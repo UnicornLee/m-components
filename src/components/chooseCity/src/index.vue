@@ -25,15 +25,17 @@
           <el-select
             size="small"
             v-model="selectValue"
+            @change="changeSelect"
             filterable
-            placeholder="请选择"
+            :filter-method="filterCity"
+            placeholder="请搜索城市"
             style="width: 240px"
           >
             <el-option
               v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
             />
           </el-select>
         </el-col>
@@ -83,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import city from '../lib/city'
 import province from '../lib/province.json'
 import { City } from './types'
@@ -95,37 +97,25 @@ let result = ref<string>('请选择')
 // 控制弹出层的显示
 let visible = ref<boolean>(false)
 // 单选框的值：按城市还是按省份选择
-let radioValue = ref<string>('2')
+let radioValue = ref<string>('1')
 // 下拉框的值 搜索下拉框
 let selectValue = ref<string>('')
 // 下拉框显示城市的数据
-const options = [
-  {
-    value: 'Option1',
-    label: 'Option1',
-  },
-  {
-    value: 'Option2',
-    label: 'Option2',
-  },
-  {
-    value: 'Option3',
-    label: 'Option3',
-  },
-  {
-    value: 'Option4',
-    label: 'Option4',
-  },
-  {
-    value: 'Option5',
-    label: 'Option5',
-  },
-]
+const options = ref<City[]>([])
 
 // 所有城市的数据
 let cities = ref(city.cities)
 // 所有省份的数据
 let provinces = ref(province)
+// 搜索输入框的值
+let searchValue = ref<string>('')
+const allCities = Object.values(cities.value).flat(2)
+
+onMounted(() => {
+  // 获取下拉框的城市属性
+  let values = Object.values(cities.value).flat(2)
+  options.value = values
+})
 
 // 点击每个城市
 const clickItem = (item: City) => {
@@ -148,6 +138,41 @@ const clickProvinceItem = (item: string) => {
 const clickChat = (item: string) => {
   let el = document.getElementById(item)
   if (el) el.scrollIntoView()
+}
+
+// 自定义搜索过滤
+const filterCity = (val: string) => {
+  searchValue.value = val
+  if (val === '') {
+    options.value = allCities
+  } else {
+    if (radioValue.value === '1') {
+      // 中文和拼音一起过滤
+      options.value = allCities.filter((item: City) => {
+        return item.name.includes(val) || item.spell.includes(val)
+      })
+    } else {
+      // 只过滤中文
+      options.value = allCities.filter((item: City) => {
+        return item.name.includes(val)
+      })
+    }
+  }
+}
+
+// 监听输入框的值
+watch(() => searchValue.value, val => {
+  filterCity(val)
+})
+
+const changeSelect = (val: number) => {
+  const city = allCities.find(item => item.id === val)!
+  result.value = city.name
+  if (radioValue.value === '1') {
+    emits('changeCity', city)
+  } else {
+    emits('changeProvince', city.name)
+  }
 }
 </script>
 
