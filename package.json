@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
+    "@types/lodash": "^4.17.1",
     "element-plus": "^2.6.1",
+    "lodash": "^4.17.21",
     "vue": "^3.4.21",
     "vue-router": "^4.0.13"
   },
